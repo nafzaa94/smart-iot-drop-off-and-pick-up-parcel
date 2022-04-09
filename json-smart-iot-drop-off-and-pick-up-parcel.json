@@ -1,0 +1,182 @@
+[
+    {
+        "id": "9937abf261414bf1",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "d7e985f2bdbc3761",
+        "type": "ui_switch",
+        "z": "9937abf261414bf1",
+        "name": "",
+        "label": "open lock",
+        "tooltip": "",
+        "group": "61285987.c20328",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "on",
+        "onvalueType": "str",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "off",
+        "offvalueType": "str",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 260,
+        "y": 580,
+        "wires": [
+            [
+                "a859aef1f4746296"
+            ]
+        ]
+    },
+    {
+        "id": "a859aef1f4746296",
+        "type": "mqtt out",
+        "z": "9937abf261414bf1",
+        "name": "mqtt lockdoor",
+        "topic": "esp32/lockdoor",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "10e78a89.5b4fd5",
+        "x": 480,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "db55b2bd59c591eb",
+        "type": "mqtt in",
+        "z": "9937abf261414bf1",
+        "name": "",
+        "topic": "esp32/notification",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "10e78a89.5b4fd5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 280,
+        "y": 680,
+        "wires": [
+            [
+                "1aba8bec635d9820"
+            ]
+        ]
+    },
+    {
+        "id": "1aba8bec635d9820",
+        "type": "ui_toast",
+        "z": "9937abf261414bf1",
+        "position": "top right",
+        "displayTime": "5",
+        "highlight": "",
+        "sendall": true,
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "className": "",
+        "topic": "ada orang datang nk hantar barang",
+        "name": "notification",
+        "x": 470,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "daa9b96734a7c694",
+        "type": "mqtt in",
+        "z": "9937abf261414bf1",
+        "name": "",
+        "topic": "esp32/irsensor",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "10e78a89.5b4fd5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 280,
+        "y": 760,
+        "wires": [
+            [
+                "4f7d6ddd59a10101"
+            ]
+        ]
+    },
+    {
+        "id": "4f7d6ddd59a10101",
+        "type": "ui_text",
+        "z": "9937abf261414bf1",
+        "group": "61285987.c20328",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "text",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 470,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "61285987.c20328",
+        "type": "ui_group",
+        "name": "Main",
+        "tab": "e7c46d5e.a1283",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "10e78a89.5b4fd5",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "e7c46d5e.a1283",
+        "type": "ui_tab",
+        "name": "Dashboard",
+        "icon": "dashboard"
+    }
+]
