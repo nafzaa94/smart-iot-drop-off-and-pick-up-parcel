@@ -1,3 +1,3 @@
 cd C:\Program Files\mosquitto
-mosquitto -v -c test.conf
+mosquitto -v -c text.conf
 pause
