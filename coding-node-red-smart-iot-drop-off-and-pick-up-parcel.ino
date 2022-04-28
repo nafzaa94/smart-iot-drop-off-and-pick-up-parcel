@@ -2,7 +2,7 @@
 #include <PubSubClient.h>
 
 // Replace the next variables with your SSID/Password combination
-const char* ssid = "HUAWEI P20";
+const char* ssid = "HP";
 const char* password = "nafza9494";
 
 // Add your MQTT Broker IP address, example:
@@ -81,12 +81,11 @@ void callback(char* topic, byte* message, unsigned int length) {
     if(messageTemp == "on"){
       Serial.println("on");
       digitalWrite(lock, HIGH);
-      state2 = 1;
     }
     else if(messageTemp == "off"){
       Serial.println("off");
       digitalWrite(lock, LOW);
-      state2 = 0;
+      state2 = 1;
     }
   }
 }
@@ -127,12 +126,16 @@ void loop() {
     state = 0;
     }
 
-  if(valueirsensor == LOW && state2 == 1){
+ if (state2 == 1){
+  if(valueirsensor == LOW){
     client.publish("esp32/irsensor", "barang ada");
+    state2 = 0;
     }
-  if (valueirsensor == HIGH && state2 == 1){
+  if (valueirsensor == HIGH){
     client.publish("esp32/irsensor", "barang tidak ada");
+    state2 = 0;
     }
+ }
 
   if (valuevibsensor == LOW){
     digitalWrite(buzz, HIGH);
