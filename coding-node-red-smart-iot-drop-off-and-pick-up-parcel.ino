@@ -26,6 +26,7 @@ int valuebutton = 0;
 int valueirsensor = 0;
 int valuevibsensor = 0;
 int state = 0;
+int state2 = 0;
 
 void setup() {
   Serial.begin(115200);
@@ -80,10 +81,12 @@ void callback(char* topic, byte* message, unsigned int length) {
     if(messageTemp == "on"){
       Serial.println("on");
       digitalWrite(lock, HIGH);
+      state2 = 1;
     }
     else if(messageTemp == "off"){
       Serial.println("off");
       digitalWrite(lock, LOW);
+      state2 = 0;
     }
   }
 }
@@ -124,10 +127,10 @@ void loop() {
     state = 0;
     }
 
-  if(valueirsensor == LOW){
+  if(valueirsensor == LOW && state2 == 1){
     client.publish("esp32/irsensor", "barang ada");
     }
-  else{
+  if (valueirsensor == HIGH && state2 == 1){
     client.publish("esp32/irsensor", "barang tidak ada");
     }
 
