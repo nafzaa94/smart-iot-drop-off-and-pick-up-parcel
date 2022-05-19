@@ -18,15 +18,12 @@ int value = 0;
 // LED Pin
 const int lock = 26;
 const int button = 14;
-const int buzz = 2;
 const int irsensor = 34;
-const int vibsensor = 35;
 
 int valuebutton = 0;
 int valueirsensor = 0;
-int valuevibsensor = 0;
+//int valuevibsensor = 0;
 int state = 0;
-int state2 = 0;
 
 void setup() {
   Serial.begin(115200);
@@ -36,7 +33,6 @@ void setup() {
   client.setCallback(callback);
 
   pinMode(lock, OUTPUT);
-  pinMode(buzz, OUTPUT);
   pinMode(button, INPUT);
 }
 
@@ -85,7 +81,6 @@ void callback(char* topic, byte* message, unsigned int length) {
     else if(messageTemp == "off"){
       Serial.println("off");
       digitalWrite(lock, LOW);
-      state2 = 1;
     }
   }
 }
@@ -116,7 +111,6 @@ void loop() {
 
   valuebutton = digitalRead(button);
   valueirsensor = digitalRead(irsensor);
-  valuevibsensor = digitalRead(vibsensor);
 
   if(valuebutton == HIGH && state == 0){
     client.publish("esp32/notification", "notification");
@@ -126,22 +120,11 @@ void loop() {
     state = 0;
     }
 
- if (state2 == 1){
   if(valueirsensor == LOW){
     client.publish("esp32/irsensor", "barang ada");
-    state2 = 0;
-    }
-  if (valueirsensor == HIGH){
-    client.publish("esp32/irsensor", "barang tidak ada");
-    state2 = 0;
-    }
- }
-
-  if (valuevibsensor == LOW){
-    digitalWrite(buzz, HIGH);
     }
   else{
-    digitalWrite(buzz, LOW);
+    client.publish("esp32/irsensor", "barang tidak ada");
     }
 
 }
